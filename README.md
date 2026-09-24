@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Taskly
 
-## Getting Started
+A small task tracker built with Next.js, Firebase Authentication, and Cloud Firestore.
 
-First, run the development server:
+## Run locally
 
 ```bash
+npm install
+cp .env.example .env.local
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Add your Firebase web app configuration to `.env.local` before signing in. Restart the dev server after changing environment values.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Firebase project setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Open the [Firebase console](https://console.firebase.google.com/) and create a project, or select an existing one.
+2. In **Project settings → General → Your apps**, add a **Web app**. Register Taskly and copy the Firebase configuration values into `.env.local` using the matching names from `.env.example`.
+3. Go to **Build → Authentication → Get started → Sign-in method**. Enable **Email/Password** and save. Enable **Google**, choose a project support email, and save.
+4. In **Authentication → Settings → Authorized domains**, make sure `localhost` is listed for local development. Add your deployed app's domain before deploying.
+5. Go to **Build → Firestore Database → Create database**. Choose a location and create the database. Do not use public test rules for this app.
+6. Open the Firestore **Rules** tab, replace its contents with the project `firestore.rules` file, and click **Publish**. These rules limit each user to their own `users/{uid}/tasks` documents and validate task fields.
+7. Start or restart Taskly with `npm run dev`, then open `/signin`. Create an account with email and password, or continue with Google. `/tasks` shows that account's tasks and `/profile` shows the account name and email.
 
-## Learn More
+The browser Firebase SDK reads only the `NEXT_PUBLIC_FIREBASE_*` values. Firebase web configuration is intended to be present in a client app; data access is protected by Authentication and the Firestore rules. Do not add service account credentials or private Admin SDK keys to these variables.
 
-To learn more about Next.js, take a look at the following resources:
+## Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Email/password account creation and sign-in
+- Google sign-in
+- Per-user task create, edit, status update, and delete
+- Basic profile page with name and email
+- Firestore ownership and field validation rules in `firestore.rules`
+- Development-only Flute scene at `/flute`

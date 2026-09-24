@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "id": "dashboard-cinematic",
+  "title": "Dashboard \u2014 cinematic",
+  "description": "A dramatic, close oblique survey of the live Taskly dashboard.",
+  "definition": {
+    "scene": {
+      "version": 3,
+      "camera": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "perspective": 1550,
+        "rotateX": 8,
+        "rotateY": -22,
+        "rotateZ": 0
+      },
+      "focus": {
+        "distance": 1550,
+        "fStop": 5.6,
+        "focalLength": 100,
+        "maxBlur": 6
+      },
+      "nodes": [
+        {
+          "id": "dashboard",
+          "transform": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "rotateX": 0,
+            "rotateY": 0,
+            "rotateZ": 0,
+            "scale": 1
+          }
+        }
+      ]
+    },
+    "motion": {
+      "durationMs": 7000,
+      "speed": 1,
+      "tracks": [
+        {
+          "target": {
+            "kind": "camera"
+          },
+          "property": "x",
+          "keyframes": [
+            {
+              "timeMs": 0,
+              "value": -80,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 7000,
+              "value": 80,
+              "easing": "cinematic"
+            }
+          ]
+        },
+        {
+          "target": {
+            "kind": "focus"
+          },
+          "property": "distance",
+          "keyframes": [
+            {
+              "timeMs": 0,
+              "value": 1200,
+              "easing": "cinematic"
+            },
+            {
+              "timeMs": 7000,
+              "value": 1550,
+              "easing": "cinematic"
+            }
+          ]
+        }
+      ]
+    },
+    "width": 1400,
+    "height": 980
+  }
+}
